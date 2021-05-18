@@ -1,0 +1,25 @@
+hana:
+  install_packages: true
+  saptune_solution: 'HANA'
+  software_path: '/sapmedia/HANA/51052481'
+  ha_enabled: false
+  monitoring_enabled: true
+
+  nodes:
+    - host: 'hana01'
+      sid: 'prd'
+      instance: 00
+      password: 'Qwerty1234'
+      install:
+        root_user: 'root'
+        root_password: 's'
+        system_user_password: 'Qwerty1234'
+        sapadm_password: 'Qwerty1234'
+      exporter:
+        exposition_port: 9668
+        multi_tenant: true
+        user: 'SYSTEM'
+        password: 'Qwerty1234'
+        port: 30013
+        timeout: 600
+

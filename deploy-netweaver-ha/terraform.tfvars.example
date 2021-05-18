@@ -1,0 +1,145 @@
+# Azure subscription and application data
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret
+subscription_id = "MY_SUBSCRIPTION_HERE"
+client_id       = "MY_CLIENT_ID_HERE"
+client_secret   = "MY_CLIENT_SECRET_HERE"
+tenant_id       = "MY_TENANT_ID_HERE"
+resource_group  = "SUSECon21-cas1073"
+location        = "westus"
+admin_username  = "azureroot"
+
+# Network
+vnet_name   = "vnet"
+vnet_addr   = "10.0.0.0/16"
+subnet_name = "subnet"
+subnet_addr = "10.0.1.0/24"
+
+# NSG rules
+nsg_name  = "nsg"
+nsg_rules = { 
+  name                       = "All"
+  direction                  = "Inbound"
+  access                     = "Allow"
+  protocol                   = "Tcp"
+  source_port_range          = "*"
+  destination_port_range     = "*"
+  source_address_prefix      = "*"
+  destination_address_prefix = "*"
+}
+
+# Storage account
+storage_account     = "org:ORG"
+storage_tier        = "Standard"
+storage_repl        = "LRS"
+sap_media_local     = "/mnt/sapmedia"
+sap_media_storage   = "/hanamedia"
+sap_media_key       = "MY_MEDIA_KEY" 
+sap_media_add_fstab = "false"
+
+# Load balancer
+create_lb           = "true"
+create_lb_public_ip = "true"
+lb_private_ip       = "10.0.1.200"
+lb_sku              = "Basic"
+
+################
+# SAP variables
+################
+
+# ASCS
+sap_ascs_instance_sid = "HA1"
+sap_ascs_instance_id = "01"
+sap_ascs_root_user = "root"
+sap_ascs_root_password = "Passw0rd123"
+sap_ascs_vip_address = "10.0.1.200"
+sap_ascs_vip_hostname = "sap-ascs-vip"
+
+ 
+# ERS
+sap_ers_instance_sid = "HA1"
+sap_ers_instance_id = "10"
+sap_ers_root_user = "root"
+sap_ers_root_password = "Passw0rd123"
+sap_ers_vip_address = "10.0.1.201"
+sap_ers_vip_hostname = "sap-ers-vip"
+
+# MISC
+sid_adm_password = "Passw0rd123"
+sap_adm_password = "Passw0rd123"
+master_password = "Passw0rd123"
+sapmnt_path = "/sapmnt"
+sidadm_user_uid = "1003"
+sidadm_user_gid = "1002"
+sapmnt_inst_media = "10.0.1.6:/var/sapmnt"
+swpm_folder = "/mnt/sapmedia/swpm_/"
+sapexe_folder = "/mnt/sapmedia/kernel_novo/part1/"
+additional_dvds = "/mnt/sapmedia/misc/"
+
+# HANA
+sap_hana_host = "hana"
+sap_hana_ip = "10.0.1.100"
+sap_hana_sid  = "PRD"
+sap_hana_instance = "00"
+sap_hana_password = "Passw0rd123"
+
+# NSG rules
+nsg = {
+  name                       = "SSH"
+  direction                  = "Inbound"
+  access                     = "Allow"
+  protocol                   = "Tcp"
+  source_port_range          = "*"
+  destination_port_range     = "*"
+  source_address_prefix      = "*"
+  destination_address_prefix = "*"
+}
+
+# Load Balancing rules and probes
+lb_rules = {
+  probe_name                 = "ssh,hawk"
+  probe_port                 = "22,7630"
+  protocol                   = "Tcp,Tcp"
+  frontend_port              = "22,7630"
+  backend_port               = "22,7630"
+  enable_floating_ip         = "false,false"
+  idle_timeout_in_minutes    = "30,30"
+  load_distribution          = "SourceIPProtocol,SourceIPProtocol"
+}
+
+# VMs SAP
+add_pub_ip    = "true"
+add_boot_diag = "true"
+machines = {
+  vm_image       = "SUSE:sles-sap-15-sp2-byos:gen2:latest,SUSE:sles-sap-15-sp2-byos:gen2:latest"
+  vm_name        = "sap-ascs-1,sap-ascs-2"
+  vm_size        = "Standard_DS11_v2,Standard_DS11_v2"
+  vm_ip          = "10.0.1.101,10.0.1.102"
+  vm_disk_type   = "Premium_LRS,Premium_LRS"
+  vm_net_accel   = "true,true"
+  cloudinit      = "files/cloud-init-ascs.yaml,files/cloud-init-ascs.yaml"
+  vm_swap_size   = "4096,4096"
+  vm_reg_code    = "SUSE_KEY,SUSE_KEY"
+  vm_reg_email   = "contact@example.org,contact@example.org"
+  vm_mount_media = "true,true"
+}
+
+# Azure Fencing Application
+create_fencing_app = "true"
+fencing_app_name   = "sap_fencing_app"
+
+# HA Cluster
+cluster_unicast    = "true"
+cluster_password   = "Passw0rd"
+
+# SAP Monitoring
+enable_monitoring  = "true"
+
+# NetApp Files
+enable_netapp_files         = "false"
+netapp_account_name         = "account-netapp-sap"
+netapp_pool_name            = "netapp-pool"
+netapp_pool_service_level   = "Premium"
+netapp_pool_size            = 4
+netapp_volume_name          = "netapp-volume"
+netapp_volume_path          = "sap-volume-path"
+netapp_volume_service_level = "Premium"

@@ -1,0 +1,30 @@
+--- azure_fence.py	2021-02-26 19:21:51.000000000 +0000
++++ azure_fence.py.new	2021-04-11 23:17:59.543732484 +0000
+@@ -292,19 +292,19 @@
+         from msrestazure.azure_active_directory import MSIAuthentication
+         credentials = MSIAuthentication()
+     elif cloud_environment:
+-        from azure.common.credentials import ServicePrincipalCredentials
+-        credentials = ServicePrincipalCredentials(
++        from azure.identity import ClientSecretCredential
++        credentials = ClientSecretCredential(
+             client_id = config.ApplicationId,
+-            secret = config.ApplicationKey,
+-            tenant = config.Tenantid,
++            client_secret = config.ApplicationKey,
++            tenant_id = config.Tenantid,
+             cloud_environment=cloud_environment
+         )
+     else:
+-        from azure.common.credentials import ServicePrincipalCredentials
+-        credentials = ServicePrincipalCredentials(
++        from azure.identity import ClientSecretCredential
++        credentials = ClientSecretCredential(
+             client_id = config.ApplicationId,
+-            secret = config.ApplicationKey,
+-            tenant = config.Tenantid
++            client_secret = config.ApplicationKey,
++            tenant_id = config.Tenantid
+         )
+ 
+     return credentials

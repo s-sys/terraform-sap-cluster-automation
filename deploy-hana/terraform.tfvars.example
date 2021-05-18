@@ -1,0 +1,79 @@
+# Azure subscription and application data
+# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret
+subscription_id = "MY_SUBSCRIPTION_HERE"
+client_id       = "MY_CLIENT_ID_HERE"
+client_secret   = "MY_CLIENT_SECRET_HERE"
+tenant_id       = "MY_TENANT_ID_HERE"
+resource_group  = "SUSECon21-cas1073"
+location        = "westus"
+admin_username  = "azureroot"
+
+# Network
+vnet_name   = "vnet"
+vnet_addr   = "10.0.0.0/16"
+subnet_name = "subnet"
+subnet_addr = "10.0.1.0/24"
+
+# NSG rules
+nsg_name  = "nsg"
+nsg_rules = { 
+  name                       = "SSH,HTTP,HTTPS"
+  direction                  = "Inbound,Inbound,Inbound"
+  access                     = "Allow,Allow,Allow"
+  protocol                   = "Tcp,Tcp,Tcp"
+  source_port_range          = "*,*,*"
+  destination_port_range     = "22,80,443"
+  source_address_prefix      = "*,*,*"
+  destination_address_prefix = "*,*,*"
+}
+
+# Storage account
+storage_account      = "account:RESOURCE-GROUP"
+storage_tier         = "Standard"
+storage_repl         = "LRS"
+hana_media_local     = "/mnt/hanamedia"
+hana_media_storage   = "/hanamedia"
+hana_media_key       = "PRIMARY-OR-SECONDARY-KEY" 
+hana_media_add_fstab = "false"
+
+# SAP HANA VM
+vm_hana_image     = "SUSE:sles-sap-15-sp2-byos:gen2:latest"
+vm_hana_name      = "hana"
+vm_hana_size      = "Standard_E4s_v3"
+vm_hana_ip        = "10.0.1.100"
+vm_hana_disk_type = "Premium_LRS"
+vm_hana_net_accel = "true"
+cloudinit_hana    = "files/cloud-init-hana.yaml"
+vm_hana_swap_size = 16384
+vm_hana_reg_code  = "MY_REG_CODE"
+vm_hana_reg_email = "EMAIL@EXAMPLE.COM"
+vm_hana_boot_diag = "false"
+vm_hana_pub_ip    = "false"
+
+# Disk configuration
+hana_disks = { 
+  disks_type       = "Premium_LRS,Premium_LRS,Premium_LRS"
+  disks_size       = "512,512,512"
+  caching          = "ReadWrite,ReadWrite,ReadWrite"
+  writeaccelerator = "false,false,false"
+  luns             = "0,1,2"
+  names            = "data,log,shared"
+  paths            = "/hana/data,/hana/log,/hana/shared"
+}
+
+# HANA Environment
+hana_install_packages     = "true"
+hana_software_path        = "/mnt/hanamedia/hana"
+hana_monitoring_enabled   = "true"
+hana_sid                  = "hdb"
+hana_instance             = "00"
+hana_password             = "Passw0rd123"
+hana_system_user_password = "Passw0rd123"
+hana_sapadm_password      = "Passw0rd123"
+
+# HANA monitoring
+monit_exposition_port = 9668
+monit_multi_tenant    = "true"
+monit_user            = "SYSTEM"
+monit_port            = 30013
+monit_timeout         = 600

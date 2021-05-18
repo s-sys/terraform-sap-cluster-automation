@@ -1,0 +1,69 @@
+# cloud-config
+resize_rootfs: true
+
+write_files:
+- content: |
+    vm_hana_name=${vm_hana_name}
+    vm_hana_swap_size="${vm_hana_swap_size}"
+    vm_hana_reg_code="${vm_hana_reg_code}"
+    vm_hana_reg_email="${vm_hana_reg_email}"
+    disks_number="${disks_number}"
+    disks_paths="${disks_paths}"
+    hana_media_local="${hana_media_local}"
+    hana_media_storage="${hana_media_storage}"
+    hana_media_key="${hana_media_key}"
+    hana_media_add_fstab="${hana_media_add_fstab}"
+    storage_account="${storage_account}"
+    admin_password=${admin_password}
+    hana_install_packages="${hana_install_packages}"
+    hana_software_path=${hana_software_path}
+    hana_monitoring_enabled="${hana_monitoring_enabled}"
+    hana_sid="${hana_sid}"
+    hana_instance="${hana_instance}"
+    hana_password="${hana_password}"
+    hana_system_user_password="${hana_system_user_password}"
+    hana_sapadm_password="${hana_sapadm_password}"
+    monit_exposition_port="${monit_exposition_port}"
+    monit_multi_tenant="${monit_multi_tenant}"
+    monit_user="${monit_user}"
+    monit_port="${monit_port}"
+    monit_timeout="${monit_timeout}"
+  path: /run/scripts/vars
+  owner: root:root
+  permissions: "0640"
+  append: false
+- encoding: gzip+base64
+  content: |
+    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
+    1JqWFPg1E7Oqkpt2D/wLx4Zg9vAOAAA=
+  path: /run/scripts/setup_hana.sh
+  owner: root:root
+  permissions: "0755"
+  append: false
+
+runcmd:
+  - [bash, "/run/scripts/setup_hana.sh"]
